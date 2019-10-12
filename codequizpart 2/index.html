@@ -25,8 +25,17 @@
           <div class="choice" id="C" onclick="checkAnswer('C')"></div>
           <div class="choice" id="D" onclick="checkAnswer('D')"></div>
         </div>
-
-      <div id="scoreContainer" style="display: none"></div>
+      </div>
+      <div id="finalScore" style="display: none">
+        <!-- show final score -->
+        <div class="score">Final Score</div>
+        <div class="score" id="yourScore"></div>
+        <!-- form to submit score -->
+        <form class="score">
+          <input placeholder="Your Name" id="name" />
+          <button id="add-btn">Submit Score</button>
+        </form>
+      </div>
     </div>
     <script src="questions.js"></script>
     <script src="app.js"></script>

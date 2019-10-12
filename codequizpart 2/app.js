@@ -6,7 +6,10 @@ var choiceA = document.getElementById("A");
 var choiceB = document.getElementById("B");
 var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
-var scoreDiv = document.getElementById("scoreContainer");
+var finalScore = document.getElementById("finalScore");
+var yourScore = document.getElementById("yourScore");
+var addBtn = document.getElementById("add-btn");
+var nameImput = document.getElementById("name");
 
 var finalQuestion = questions.length - 1;
 var currentQuestion = 0;
@@ -33,6 +36,23 @@ function startQuiz() {
   // start timeer
 }
 
+function showScore() {
+  // hide  qiuz
+  quiz.style.display = "none";
+  finalScore.style.display = "block";
+  // show score
+  yourScore.textContent = score;
+}
+
+function storeScore(event) {
+  event.preventDefault();
+  var user = {
+    name: nameImput.value,
+    savedScore: score
+  };
+
+  localStorage.setItem("storage", JSON.stringify(user));
+}
 // make score and check anser
 
 function checkAnswer(answer) {
@@ -44,9 +64,12 @@ function checkAnswer(answer) {
     currentQuestion++;
     showQuestion();
   } else {
-    alert("finished!");
+    showScore();
     console.log(score);
   }
 }
 
+// see score page and subit
+
 start.addEventListener("click", startQuiz);
+addBtn.addEventListener("click", storeScore);
