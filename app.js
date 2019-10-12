@@ -13,6 +13,7 @@ var highScores = document.getElementById("highScores");
 var nameAndScore = document.getElementById("nameAndScore");
 var timerEl = document.getElementById("timer");
 var highScoresBtn = document.getElementById("highScoresBtn");
+var homeBtn = document.getElementById("homeBtn");
 
 var finalQuestion = questions.length - 1;
 var currentQuestion = 0;
@@ -49,24 +50,16 @@ function showScore() {
   finalScore.style.display = "block";
   // show score
   yourScore.textContent = score + timeLeft;
-  console.log("time left" + timeLeft);
 }
 
 function storeScore(event) {
+  // define the array length and object with keys and values
   user[user.length] = {
     names: nameImput.value,
-    savedScores: score
+    savedScores: score + timeLeft
   };
 
   localStorage.setItem("storage", JSON.stringify(user));
-
-  init();
-  // var lastUser = JSON.parse(localStorage.getItem("user"));
-  // for (var i = 0; i < lastUser.length; i++) {
-  //   var p = document.createElement("p");
-  //   nameAndScore.p.textContent = lastUser[i].name;
-  //   nameAndScore.p.textContent = lastUser[i].savedScore;
-  // }
 }
 
 function renderScore() {
@@ -77,9 +70,12 @@ function renderScore() {
     var name = user[i].names;
     var score = user[i].savedScores;
     var div = document.createElement("div");
-    div.textContent = name + " " + score;
+    div.textContent = name + "   " + score;
     div.setAttribute("data-index", i);
     nameAndScore.appendChild(div);
+  }
+  if ((lastUser = null)) {
+    lastUser = user;
   }
 }
 
@@ -88,22 +84,33 @@ function scoresPage() {
   quiz.style.display = "none";
   finalScore.style.display = "none";
   highScores.style.display = "block";
+  homeBtn.style.display = "block";
+  //stop clock
+  clearInterval(timeInterval);
+  // send scores to score page if finished
+  renderScore();
 }
 
+function homePage() {
+  start.style.display = "block";
+  quiz.style.display = "none";
+  finalScore.style.display = "none";
+  homeBtn.style.display = "none";
+  highScores.style.display = "none";
+}
 function init() {
   start.style.display = "block";
   quiz.style.display = "none";
   finalScore.style.display = "none";
+  homeBtn.style.display = "none";
 
   // Get stored todos from localStorage
   // Parsing the JSON string to an object
   var lastUser = JSON.parse(localStorage.getItem("storage"));
 
-  // If todos were retrieved from localStorage, update the todos array to it
   if (lastUser !== null) {
     user = lastUser;
   }
-  console.log(lastUser);
 }
 
 function startTimer() {
@@ -125,6 +132,7 @@ function checkAnswer(answer) {
   if (answer !== questions[currentQuestion].correct) {
     // decrease 15 seconds of time
     timeLeft -= 15;
+    score -= 0;
   }
   if (currentQuestion < finalQuestion) {
     currentQuestion++;
@@ -136,10 +144,9 @@ function checkAnswer(answer) {
 }
 
 // see score page and subit
-
 start.addEventListener("click", startQuiz);
 addBtn.addEventListener("click", storeScore);
 highScoresBtn.addEventListener("click", scoresPage);
+homeBtn.addEventListener("click", homePage);
 
 init();
-renderScore();

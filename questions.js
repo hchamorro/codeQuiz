@@ -1,22 +1,42 @@
-var questions = [
+let questions = [
   {
-    title: "qustion 1",
-    choices: ["1", "2", "3"],
-    answer: "2"
+    question: "How many tablespoons are in a quater cup?",
+    choiceA: "2",
+    choiceB: "4",
+    choiceC: "6",
+    choiceD: "8",
+    correct: "B"
   },
   {
-    title: "qustion 2",
-    choices: ["1", "2", "3"],
-    answer: "2"
+    question: "How many cups are in a gallon?",
+    choiceA: "4",
+    choiceB: "8",
+    choiceC: "12",
+    choiceD: "16",
+    correct: "D"
   },
   {
-    title: "qustion 3",
-    choices: ["1", "2", "3"],
-    answer: "2"
+    question: "How many pints are in a quart",
+    choiceA: "2",
+    choiceB: "3",
+    choiceC: "4",
+    choiceD: "5",
+    correct: "A"
   },
   {
-    title: "qustion 4",
-    choices: ["1", "2", "3"],
-    answer: "2"
+    question: "How many quarts are in a gallon?",
+    choiceA: "2",
+    choiceB: "3",
+    choiceC: "4",
+    choiceD: "5",
+    correct: "C"
+  },
+  {
+    question: "How many cups are in a quart",
+    choiceA: "2",
+    choiceB: "3",
+    choiceC: "4",
+    choiceD: "5",
+    correct: "C"
   }
 ];

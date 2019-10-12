@@ -1,56 +1,48 @@
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./style.css" />
-    <title>Document</title>
+
+    <title>Quiz</title>
+
+    <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col d-flex justify-content-start">High Scores</div>
-        <div class="col d-flex justify-content-end">Timer</div>
+    <div id="container">
+      <div id="header" class="header">
+        <div id="highScoresBtn" class="highScoresBtn">High Scores</div>
+        <div id="timer">Timer</div>
       </div>
-    </div>
-    <div class="container">
-      <div class="row justify-content-md-center">
-        <div id="quizContainer">
-          <div>Computer Quiz</div>
-          <div id="quesions"></div>
-          <label for="" class="choiceBox"
-            ><input type="radio" name="option" value="1" /><span
-              id="opt1"
-            ></span>
-          </label>
-          <label for="" class="choiceBox"
-            ><input type="radio" name="option" value="1" /><span
-              id="opt2"
-            ></span>
-          </label>
-          <label for="" class="choiceBox"
-            ><input type="radio" name="option" value="1" /><span
-              id="opt3"
-            ></span>
-          </label>
-          <label for="" class="choiceBox"
-            ><input type="radio" name="option" value="1" /><span
-              id="opt4"
-            ></span>
-          </label>
+      <div id="start" class="start">Start Quiz!</div>
+
+      <div id="quiz" style="display: none">
+        <div id="question" class="question"></div>
+        <div id="choices">
+          <div class="choice" id="A" onclick="checkAnswer('A')"></div>
+          <div class="choice" id="B" onclick="checkAnswer('B')"></div>
+          <div class="choice" id="C" onclick="checkAnswer('C')"></div>
+          <div class="choice" id="D" onclick="checkAnswer('D')"></div>
         </div>
       </div>
+      <div id="finalScore" style="display: none">
+        <!-- show final score -->
+        <div class="score">Final Score</div>
+        <div class="score" id="yourScore"></div>
+        <!-- form to submit score -->
+        <form class="score">
+          <input placeholder="Your Name" id="name" />
+          <button id="add-btn">Submit Score</button>
+        </form>
+      </div>
+      <div id="highScores" class="highScores" style="display: none">
+        <div class="highScoresTitle">High Scores</div>
+        <div id="nameAndScore" class="nameAndScore"></div>
+      </div>
+      <div id="homeBtn" class="homeBtn" style="display: none">Home</div>
     </div>
-    <button id="submit">Submit Quiz</button>
-    <div id="results" style="display: none;"></div>
     <script src="questions.js"></script>
-    <script src="script.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
