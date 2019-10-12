@@ -66,7 +66,6 @@ function renderScore() {
   nameAndScore.innerHTML = "";
   var lastUser = JSON.parse(localStorage.getItem("storage"));
   for (var i = 0; i < lastUser.length; i++) {
-    console.log("last user" + lastUser[i].savedScores);
     var name = user[i].names;
     var score = user[i].savedScores;
     var div = document.createElement("div");
