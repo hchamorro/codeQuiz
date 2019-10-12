@@ -1,7 +1,6 @@
 var start = document.getElementById("start");
 var quiz = document.getElementById("quiz");
 var question = document.getElementById("question");
-var qImg = document.getElementById("qImg");
 var choiceA = document.getElementById("A");
 var choiceB = document.getElementById("B");
 var choiceC = document.getElementById("C");
@@ -10,10 +9,17 @@ var finalScore = document.getElementById("finalScore");
 var yourScore = document.getElementById("yourScore");
 var addBtn = document.getElementById("add-btn");
 var nameImput = document.getElementById("name");
+var highScores = document.getElementById("highScores");
+var nameAndScore = document.getElementById("nameAndScore");
+var timerEl = document.getElementById("timer");
+var highScoresBtn = document.getElementById("highScoresBtn");
 
 var finalQuestion = questions.length - 1;
 var currentQuestion = 0;
 var score = 0;
+var user = [];
+var timeLeft = 90;
+var timeInterval = 0;
 
 // show a question
 
@@ -34,6 +40,7 @@ function startQuiz() {
   //change display from none to visible
   quiz.style.display = "block";
   // start timeer
+  startTimer();
 }
 
 function showScore() {
@@ -41,31 +48,90 @@ function showScore() {
   quiz.style.display = "none";
   finalScore.style.display = "block";
   // show score
-  yourScore.textContent = score;
+  yourScore.textContent = score + timeLeft;
+  console.log("time left" + timeLeft);
 }
 
 function storeScore(event) {
-  event.preventDefault();
-  var user = {
-    name: nameImput.value,
-    savedScore: score
+  user[user.length] = {
+    names: nameImput.value,
+    savedScores: score
   };
 
   localStorage.setItem("storage", JSON.stringify(user));
+
+  init();
+  // var lastUser = JSON.parse(localStorage.getItem("user"));
+  // for (var i = 0; i < lastUser.length; i++) {
+  //   var p = document.createElement("p");
+  //   nameAndScore.p.textContent = lastUser[i].name;
+  //   nameAndScore.p.textContent = lastUser[i].savedScore;
+  // }
 }
-// make score and check anser
+
+function renderScore() {
+  nameAndScore.innerHTML = "";
+  var lastUser = JSON.parse(localStorage.getItem("storage"));
+  for (var i = 0; i < lastUser.length; i++) {
+    console.log("last user" + lastUser[i].savedScores);
+    var name = user[i].names;
+    var score = user[i].savedScores;
+    var div = document.createElement("div");
+    div.textContent = name + " " + score;
+    div.setAttribute("data-index", i);
+    nameAndScore.appendChild(div);
+  }
+}
+
+function scoresPage() {
+  start.style.display = "none";
+  quiz.style.display = "none";
+  finalScore.style.display = "none";
+  highScores.style.display = "block";
+}
+
+function init() {
+  start.style.display = "block";
+  quiz.style.display = "none";
+  finalScore.style.display = "none";
+
+  // Get stored todos from localStorage
+  // Parsing the JSON string to an object
+  var lastUser = JSON.parse(localStorage.getItem("storage"));
+
+  // If todos were retrieved from localStorage, update the todos array to it
+  if (lastUser !== null) {
+    user = lastUser;
+  }
+  console.log(lastUser);
+}
+
+function startTimer() {
+  timeInterval = setInterval(function() {
+    timerEl.textContent = timeLeft;
+    timeLeft--;
+
+    if (timeLeft <= 0) {
+      timerEl.textContent = "";
+      clearInterval(timeInterval);
+    }
+  }, 1000);
+}
 
 function checkAnswer(answer) {
   if (answer === questions[currentQuestion].correct) {
-    score++;
-  } else {
+    score += 10;
+  }
+  if (answer !== questions[currentQuestion].correct) {
+    // decrease 15 seconds of time
+    timeLeft -= 15;
   }
   if (currentQuestion < finalQuestion) {
     currentQuestion++;
     showQuestion();
   } else {
+    clearInterval(timeInterval);
     showScore();
-    console.log(score);
   }
 }
 
@@ -73,3 +139,7 @@ function checkAnswer(answer) {
 
 start.addEventListener("click", startQuiz);
 addBtn.addEventListener("click", storeScore);
+highScoresBtn.addEventListener("click", scoresPage);
+
+init();
+renderScore();
