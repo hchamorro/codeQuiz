@@ -131,7 +131,7 @@ function checkAnswer(answer) {
   if (answer !== questions[currentQuestion].correct) {
     // decrease 15 seconds of time
     timeLeft -= 15;
-    score -= 0;
+    score -= 10;
   }
   if (currentQuestion < finalQuestion) {
     currentQuestion++;
