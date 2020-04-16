@@ -4,7 +4,7 @@ A quick and easy app to quiz, time and locally store scores.
 
 View the deployed application here: https://hchamorro.github.io/codeQuiz/
 
-It is built with JavaScript & CSS.
+Built with JavaScript & CSS.
 
 ## Contributing
 
@@ -44,11 +44,25 @@ High Scores:
 
 ## Tech/framework used
 
-Ex. -
-
 <b>Built with JavaScript</b>
-
-
+Ex. -
+```
+function renderScore() {
+  nameAndScore.innerHTML = "";
+  var lastUser = JSON.parse(localStorage.getItem("storage"));
+  for (var i = 0; i < lastUser.length; i++) {
+    var name = user[i].names;
+    var score = user[i].savedScores;
+    var div = document.createElement("div");
+    div.textContent = name + "   " + score;
+    div.setAttribute("data-index", i);
+    nameAndScore.appendChild(div);
+  }
+  if ((lastUser = null)) {
+    lastUser = user;
+  }
+}
+```
 
 ## Installation
 
