@@ -70,7 +70,9 @@ After cloning this repo the test should run in local browser.
 
 ## Issues
 Restart Function
+
 Clear High Scores
+
 Sort Scores High to Low
 
 ## Contribute
